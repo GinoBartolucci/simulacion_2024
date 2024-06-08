@@ -22,7 +22,7 @@ a_uniforme, b_uniforme = 0, 10  # Intervalo [a, b]
 tamaño_uniforme = 10000  # Número de muestras
 
 # Generación de la distribución uniforme
-uniform_data = [a_uniforme+ (b_uniforme - a_uniforme) * x for x in gcl(seed, tamaño_uniforme)]
+datos_uniforme = [a_uniforme+ (b_uniforme - a_uniforme) * x for x in gcl(seed, tamaño_uniforme)]
 
 ####Distribución normal####
 # Parámetros para la distribución normal
