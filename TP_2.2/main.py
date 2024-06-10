@@ -77,15 +77,15 @@ def dist_normal(mu, sigma, size):
 #binomial negativa 
 def dist_pascal(k, q, size): 
   datos_pascal = []
+  q = 1-q
   for i in range(size):
     x=0
     tr=1
-    qr= np.log(q)
     for i in range(k):
       r = np.random.uniform(0, 1)
-      tr = tr * r
-    nx = np.log(tr)/qr
-    x = nx
+      tr =tr*r
+      math.floor(tr)
+    x = math.floor(np.log(tr)/np.log(q))
     datos_pascal.append(x)
   return datos_pascal
     
@@ -104,17 +104,17 @@ def dist_hipergeometrica(tn, ns, p, size):
   datos_hipergeometrica = []
   for i in range(size):
     x = 0
-    tnx = tn
-    px = p
+    tni = tn
+    pi = p
     for i in range(ns):
       r = np.random.uniform(0, 1)
-      if r <= px:
-        s=1
-        x= x+1
+      if r < pi:
+        s = 1
+        x = x + 1
       else:
         s=0
-      px = (tnx*p-s)/(tnx-1)
-      tnx = tnx-1
+      pi = ((tni*p)-s)/(tni-1)
+      tni = tni - 1
     datos_hipergeometrica.append(x)
   return datos_hipergeometrica
 
@@ -218,8 +218,8 @@ def normal():
   graficar_dispersion(sec_n, "Numpy-Normal")
   graficar_histograma([sec_n, datos_normal], "Normal-comparacion")
 def pascal():
-  sec_p = np.random.negative_binomial(5, 0.5, largo_secuencia)
-  datos_pascal = dist_pascal(5, 0.5, largo_secuencia)
+  sec_p = np.random.negative_binomial(5, 0.4, largo_secuencia)
+  datos_pascal = dist_pascal(5, 0.4, largo_secuencia)
   graficar_histograma(datos_pascal, "Pascal")
   graficar_dispersion(datos_pascal, "Pascal")
   # Graficamos la distribución binomial
@@ -237,6 +237,7 @@ def binomial():
   graficar_dispersion(sec_b, "Numpy-Binomial")
   graficar_histograma([sec_b, datos_binomial], "Binomial-comparacion")
 def hipergeometrica():
+  #buenas malas sample
   sec_h = np.random.hypergeometric(100, 60, 10, largo_secuencia)
   datos_hipergeometrica = dist_hipergeometrica(100, 60, 10/100, largo_secuencia)
   graficar_histograma(datos_hipergeometrica, "Hipergeometrica")
@@ -266,13 +267,13 @@ def empirica_discreta():
   graficar_histograma([sec_ed, datos_empirica_discreta], "Empirica_Discreta-comparacion")
 
 if __name__ == "__main__":
-  uniforme()
-  exponencial()
-  gamma()
-  normal()
+  # uniforme()
+  # exponencial()
+  # gamma()
+  # normal()
   pascal()
-  binomial()
+  # binomial()
   hipergeometrica()
-  poisson()
-  empirica_discreta()
+  # poisson()
+  # empirica_discreta()
   print("Gráficos generados exitosamente")
