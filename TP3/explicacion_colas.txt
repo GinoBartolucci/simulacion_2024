@@ -1,0 +1,35 @@
+Este código en Python es una simulación de un sistema de colas, típicamente utilizado para modelar sistemas como líneas de
+ espera en bancos, procesos de atención al cliente, sistemas de servidores web, entre otros. Utiliza una aproximación basada 
+ en eventos discretos, donde los eventos principales son las llegadas de clientes y las salidas después de ser atendidos.
+
+El código se estructura en varias funciones, cada una encargada de una parte específica de la simulación:
+
+inicializar(): Establece los valores iniciales de las variables de la simulación, como el tiempo, el estado del servidor 
+(ocupado o no), el número de clientes en cola, entre otros.
+
+tiempo(): Determina el próximo evento a ocurrir (llegada o salida de un cliente) y avanza el tiempo de 
+simulación hasta ese evento.
+
+llegada(): Maneja la llegada de un nuevo cliente. Si el servidor está ocupado, el cliente se añade a la cola. 
+Si no, el cliente es atendido inmediatamente.
+
+salida(): Maneja la salida de un cliente. Si hay clientes esperando en la cola, el siguiente cliente en la cola 
+comienza a ser atendido; de lo contrario, el servidor queda libre.
+
+informe(): Imprime un resumen de los resultados de la simulación, como el número promedio de clientes en el sistema, 
+el tiempo promedio que un cliente pasa en el sistema, entre otros.
+
+exponencial(): Genera tiempos entre llegadas o servicios siguiendo una distribución exponencial, común en teoría de 
+colas para modelar tiempos entre eventos aleatorios.
+
+simular(): Es la función principal que ejecuta la simulación. Inicializa el sistema, luego entra en un bucle donde 
+en cada iteración se determina y maneja el próximo evento (llegada o salida), hasta que se alcanza un número deseado 
+de clientes atendidos. También recopila datos para análisis estadístico y visualización, como el número de clientes 
+en cola a lo largo del tiempo y la utilización del servidor.
+
+El código finaliza con la visualización de los resultados mediante gráficos de barras y de pastel, utilizando la 
+biblioteca matplotlib, para mostrar el número de clientes en cola a lo largo del tiempo y la proporción del tiempo 
+que el servidor estuvo ocupado versus desocupado, respectivamente.
+
+Este tipo de simulación es útil para entender el comportamiento de sistemas de colas bajo diferentes condiciones y para 
+diseñar sistemas más eficientes.

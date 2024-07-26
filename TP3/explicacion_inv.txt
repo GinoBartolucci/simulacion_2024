@@ -1,0 +1,30 @@
+Este código en Python implementa una simulación de inventario para un solo producto utilizando diferentes políticas de 
+inventario para evaluar su rendimiento a lo largo del tiempo. La simulación se basa en conceptos de teoría de colas y 
+simulación de eventos discretos para modelar el comportamiento del inventario de un producto bajo demanda aleatoria y 
+tiempos de reabastecimiento variables.
+
+El código comienza importando módulos necesarios y estableciendo variables globales que representan diferentes aspectos 
+del sistema de inventario, como el nivel inicial de inventario, costos asociados con el manejo de inventario, y parámetros 
+para la generación de demanda y tiempos de entrega.
+
+Las funciones expon, random_integer, y uniform son generadores de números aleatorios que simulan los tiempos entre 
+demandas (siguiendo una distribución exponencial), la cantidad de demanda (basada en una distribución de probabilidad 
+discreta), y los tiempos de retraso de entrega (siguiendo una distribución uniforme), respectivamente.
+
+La función main es el punto de entrada de la simulación, donde se itera sobre un conjunto de políticas de inventario 
+definidas. Para cada política, se inicializa el estado del sistema y se simulan eventos hasta que se alcanza el final 
+del período de simulación. Los eventos pueden ser la llegada de un pedido, una demanda del producto, una evaluación 
+para realizar un nuevo pedido, o la generación de un informe de resultados.
+
+Las funciones initialize, timing, order_arrival, demand, evaluate, y report gestionan la lógica de la simulación. 
+initialize prepara el sistema para la simulación, timing determina el próximo evento a procesar, order_arrival y demand 
+actualizan el nivel de inventario basándose en la llegada de pedidos y la demanda del producto, respectivamente. 
+evaluate decide si es necesario realizar un nuevo pedido basándose en los niveles actuales de inventario, y report 
+genera un informe de los costos promedio asociados con la política de inventario evaluada.
+
+La función update_time_avg_stats actualiza estadísticas acumulativas necesarias para calcular los costos promedio 
+de mantenimiento y escasez de inventario.
+
+Este código es un ejemplo de cómo se pueden utilizar técnicas de simulación para evaluar y optimizar políticas 
+de inventario en un entorno incierto, permitiendo a los gestores tomar decisiones más informadas sobre cómo gestionar 
+sus inventarios de manera eficiente.
