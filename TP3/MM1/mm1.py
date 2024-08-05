@@ -200,7 +200,11 @@ def plot_results(results, metric):
     plt.grid(True)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+
+    plot_filename = f"grafica_{metric}_{timestamp}.jpg"
+    plot_path = os.path.join(ruta_relativa_carpeta, plot_filename)
+    plt.savefig(plot_path)
+    plt.close()
 
 
 metrics = ['L', 'W', 'L_q', 'W_q', 'rho', 'P_0', 'P_denial']
