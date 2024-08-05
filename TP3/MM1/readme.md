@@ -3,7 +3,7 @@ python mm1.py -s 2024 -l 10 -m 15 -t 10000 -n 10
 
 donde tenemos:
 s: semilla
-l: número de arrivos (lambda)
+l: número de arribos (lambda)
 m: número de servicio (mu)
 t: tiempo de ejecución
 n: número de corridas
