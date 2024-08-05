@@ -106,9 +106,9 @@ def simulate_mm1_queue(arrival_rate, service_rate, simulation_time, max_queue_le
 
 parser = argparse.ArgumentParser(description="Simulador de M/M/1")
 parser.add_argument("-s", default=2024, type=int, help="Número de semilla")
-parser.add_argument("-l", default=10.0, type=float, help="Número de arrivo")
+parser.add_argument("-l", default=10.0, type=float, help="Número de arribo")
 parser.add_argument("-m", default=15.0, type=float, help="Número de servicio")
-parser.add_argument("-t", default=10000, type=int, help="Tiempo de simulacion")
+parser.add_argument("-t", default=10000, type=int, help="Tiempo de simulación")
 parser.add_argument("-n", default=10, type=int, help="Cantidad de corridas")
 args = parser.parse_args()
 seed_value = args.s
