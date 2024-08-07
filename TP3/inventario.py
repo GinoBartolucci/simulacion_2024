@@ -47,20 +47,19 @@ def main():
 
     num_evento = 4
 
-    print("Sistema de inventario de un solo producto\n")
-    print(f"Nivel de inventario inicial {NivelInvInicial} items\n")
-    print(f"Tamaños de la demanda {num_valor_demanda}\n")
+    print(f"El nivel de inventario inicial es de: {NivelInvInicial} items")
+    print(f"La demanda tiene un tamaño de: {num_valor_demanda}")
+    print(f"El tiempo medio entre demanda es de: {Promedio_Demandas}")
+    print(f"El rango de retraso de entrega va desde {MinRetraso} a {MaxRetraso} meses")
+    print(f"La duración de la simulación es de: {num_mes} meses")
+    print(f"Costo de Orden = {CostoConf}, Costo Unitario = {Costo_Incremental_Uni}, Costo de Mantenimiento = {Costo_unidad}, Costo por Faltante = {Costo_Unidad_Esca}")
+    print(f"En total hay {num_politicas} políticas de inventario (InvMin, InvMax)")
     print("Función de distribución de tamaños de demanda ")
     for i in range(1, num_valor_demanda + 1):
         print(str(Prob_Distribucion_Demanda[i]))
     print("\n")
-    print(f"Tiempo medio entre demanda {Promedio_Demandas}\n")
-    print(f"Rango de retraso de entrega {MinRetraso} a {MaxRetraso} meses\n")
-    print(f"Duración de la simulación {num_mes} meses\n")
-    print(f"K = {CostoConf} i = {Costo_Incremental_Uni} h = {Costo_unidad} pi = {Costo_Unidad_Esca}\n")
-    print(f"Número de políticas {num_politicas}\n\n")
-    print(" \t\t Promedio \t Promedio \t\t Promedio \t\t Promedio")
-    print(" Politica \tCosto total\tcosto de pedido\tcosto de mantenimiento\tcosto de escasez")
+    print(" \t\t Promedio \t Promedio \t\t Promedio \t\t\t Promedio")
+    print(" Politica \tCosto total\tcosto de pedido\t\tcosto de mantenimiento\t\tcosto de escasez")
 
     for i in range(num_politicas):
         InvMin, InvMax = Politica_Inv[i]
@@ -131,7 +130,7 @@ def report():
     avg_holding_cost = Costo_unidad * area_BLC_InvPos / num_mes
     avg_ordering_cost = Costo_Total_Pedido_Realizado / num_mes
     avg_shortage_cost = Costo_Unidad_Esca * area_BLC_InvNeg / num_mes
-    print(f"\n({InvMin:3d},{InvMax:3d}){avg_ordering_cost + avg_holding_cost + avg_shortage_cost:15.2f}{avg_ordering_cost:15.2f}{avg_holding_cost:15.2f}{avg_shortage_cost:15.2f}")
+    print(f"\n({InvMin:2d},{InvMax:2d}){avg_ordering_cost + avg_holding_cost + avg_shortage_cost:15.2f}{avg_ordering_cost:15.2f}\t\t{avg_holding_cost:15.2f}\t\t\t{avg_shortage_cost:15.2f}")
 
 def update_time_avg_stats():
     global Tiempo_Ult_Event, Tiempo_Actual, area_BLC_InvNeg, area_BLC_InvPos
