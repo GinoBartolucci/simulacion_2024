@@ -9,9 +9,19 @@ import argparse
 
 
 def theoretical_values(arrival_rate, service_rate, max_queue_length):
+    if arrival_rate >= service_rate:
+        # Si lambda >= mu, el sistema es inestable o indefinido, devolver valores infinitos o nulos según corresponda.
+        return {
+            'rho': float('inf') if arrival_rate > service_rate else 1.0,
+            'L': float('inf'),
+            'L_q': float('inf'),
+            'W': float('inf'),
+            'W_q': float('inf'),
+            'P_0': 0,
+            'P_denial': 1
+        }
+
     rho = arrival_rate / service_rate
-    if rho >= 1:
-        raise ValueError("El sistema es inestable para λ/μ ≥ 1")
 
     if max_queue_length == 0:
         # Si la capacidad de la cola es cero
@@ -22,6 +32,17 @@ def theoretical_values(arrival_rate, service_rate, max_queue_length):
         W_q = 0
         W = 1 / service_rate
     else:
+        # Si rho se acerca a 1, manejamos el límite para evitar divisiones por cero.
+        if rho == 1:
+            return {
+                'rho': rho,
+                'L': float('inf'),
+                'L_q': float('inf'),
+                'W': float('inf'),
+                'W_q': float('inf'),
+                'P_0': 0,
+                'P_denial': 1
+            }
         # Probabilidad de que un cliente se encuentre con cero clientes en cola
         P_0 = (1 - rho) / (1 - rho ** (max_queue_length + 2))
         # Probabilidad de que un cliente se encuentre con la cola llena
@@ -47,6 +68,18 @@ def theoretical_values(arrival_rate, service_rate, max_queue_length):
 
 
 def simulate_mm1_queue(arrival_rate, service_rate, simulation_time, max_queue_length):
+    if arrival_rate > service_rate:
+        return {
+            'L': float('inf'),
+            'W': float('inf'),
+            'L_q': float('inf'),
+            'W_q': float('inf'),
+            'rho': float('inf'),
+            'P_0': 0,
+            'P_denial': 1,
+            'event_log': []
+        }
+
     t = 0
     n = 0  # Número de clientes en el sistema
     event_queue = []
@@ -106,13 +139,11 @@ def simulate_mm1_queue(arrival_rate, service_rate, simulation_time, max_queue_le
 
 parser = argparse.ArgumentParser(description="Simulador de M/M/1")
 parser.add_argument("-s", default=2024, type=int, help="Número de semilla")
-parser.add_argument("-l", default=10.0, type=float, help="Número de arribo")
-parser.add_argument("-m", default=15.0, type=float, help="Número de servicio")
-parser.add_argument("-t", default=10000, type=int, help="Tiempo de simulación")
+parser.add_argument("-m", default=10.0, type=float, help="Número de servicio")
+parser.add_argument("-t", default=1000, type=int, help="Tiempo de simulación")
 parser.add_argument("-n", default=10, type=int, help="Cantidad de corridas")
 args = parser.parse_args()
 seed_value = args.s
-arrival_rate = args.l
 service_rate = args.m
 simulation_time = args.t
 num_runs = args.n
@@ -129,7 +160,7 @@ results = {
 # Run simulations and theoretical calculations
 for multiplier in arrival_rate_multipliers:
     for max_queue_length in queue_lengths:
-        adjusted_arrival_rate = arrival_rate * multiplier
+        adjusted_arrival_rate = service_rate * multiplier
         theoretical = theoretical_values(adjusted_arrival_rate, service_rate, max_queue_length)
         simulated_runs = [simulate_mm1_queue(adjusted_arrival_rate, service_rate, simulation_time, max_queue_length) for _ in range(num_runs)]
 
